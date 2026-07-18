@@ -1234,9 +1234,7 @@ body.lang-en .bd-hero h1.headline{line-height:.98}
             <div class="grid2">
               <div class="field"><label>Diagnosis rate (%)</label><input type="number" id="pm-diagnosed" value="70" min="0" max="100" step="1"/></div>
               <div class="field"><label>Eligible patients (%)</label><input type="number" id="pm-eligible" value="60" min="0" max="100" step="1"/></div>
-              <div class="field"><label>Treated patients (%)</label><input type="number" id="pm-treated" value="70" min="0" max="100" step="1"/></div>
-              <div class="field"><label>Accessible population (%)</label><input type="number" id="pm-accessible" value="65" min="0" max="100" step="1"/></div>
-              <div class="field"><label>Peak market share (%)</label><input type="number" id="pm-share" value="40" min="0" max="100" step="1"/><div class="hint source-hint" id="pm-share-source" style="margin-top:5px"></div></div>
+              <div class="field"><label>Peak product market share of eligible patients (%)</label><input type="number" id="pm-share" value="40" min="0" max="100" step="1"/><div class="hint" style="margin-top:5px">Includes treatment uptake, payer access and competitive share—these are not deducted again.</div><div class="hint source-hint" id="pm-share-source" style="margin-top:5px"></div></div>
               <div class="field"><label>Annual list / WAC price ($)</label><input type="number" id="pm-list-price" value="150000" min="0" step="1000"/></div>
               <div class="field"><label>Gross-to-net discount (%)</label><input type="number" id="pm-gtn" value="15" min="0" max="100" step="1"/></div>
               <div class="field"><label>Estimated annual net price ($)</label><input type="number" id="pm-price" value="127500" min="0" step="1000" readonly/></div>
@@ -1340,15 +1338,15 @@ body.lang-en .bd-hero h1.headline{line-height:.98}
         <div class="formula">epidemiology_patients = population × rate_per_100k ÷ 100,000
 diagnosed_patients    = epidemiology_patients × diagnosis_rate
 eligible_patients     = diagnosed_patients × eligibility_rate
-treated_patients      = eligible_patients × treatment_rate
-accessible_population= treated_patients × access_rate
-product_patients      = accessible_population × market_share
+product_patients      = eligible_patients × product_market_share
 annual_revenue        = product_patients × annual_net_price
 annual_net_price      = annual_list_or_WAC_price × (1 - gross_to_net_discount)
 
+Product market share is defined as the share of eligible patients who ultimately receive the product. It already incorporates treatment uptake, payer access and competition, avoiding double-counting through separate treated and accessible reductions.
+
 Automatic epidemiology lookup: Orphadata for rare diseases; NLM terminology normalization for common diseases; curated cited estimates where available; CDC PLACES modeled adult prevalence for supported US chronic conditions; automated Europe PMC population-epidemiology retrieval and numeric extraction for other common diseases; and World Bank population.
 No single free public API covers every disease and geography. The engine therefore follows that source ladder and leaves a value blank when no defensible population estimate passes the checks; it does not turn terminology matches or unrelated study rates into patient counts.
-For literature-derived estimates, the engine ranks disease focus, population design, geography and metric context, normalizes percentages and rates to patients per 100,000, and labels the result as review-required. It does not silently treat a study cohort, confidence interval or unrelated outcome rate as population epidemiology. Each conversion rate, price basis, access/share assumption, growth, forecast horizon and share ramp remains editable; the source and rationale are retained and edited values are flagged. Competition searches use openFDA label text and active interventional studies from ClinicalTrials.gov; Excel exports retain the assumptions, formulas, sources and time series.</div>
+For literature-derived estimates, the engine ranks disease focus, population design, geography and metric context, normalizes percentages and rates to patients per 100,000, and labels the result as review-required. It does not silently treat a study cohort, confidence interval or unrelated outcome rate as population epidemiology. Each conversion rate, price basis, product-share assumption, growth, forecast horizon and share ramp remains editable; the source and rationale are retained and edited values are flagged. Competition searches use openFDA label text and active interventional studies from ClinicalTrials.gov; Excel exports retain the assumptions, formulas, sources and time series.</div>
 
         <h3 style="margin-top:28px"><span class="zh-txt">1 · 创新药 rNPV 模型(参数路径)</span><span class="en-txt">1 · New drug rNPV (parametric path)</span></h3>
         <div class="formula">rNPV_licensor = PoS × Σ_t  [Peak × Ramp(t) × ModPremium × RoyaltyRate]
@@ -3059,8 +3057,6 @@ const PATIENT_PROFILES = {
     epidemiology:{value:1.4,metric:'prevalence',quality:'Published estimate',source:'https://www.novartis.com/us-en/news/media-releases/fda-approves-novartis-vijoice-alpelisib-first-and-only-treatment-select-patients-pik3ca-related-overgrowth-spectrum-pros',note:'Estimated prevalence of approximately 14 people per million (1.4 per 100,000).'},
     diagnosed:{value:78,quality:'Proxy · small study',source:'https://pmc.ncbi.nlm.nih.gov/articles/PMC9077929/',note:'Proxy uses the complement of the 22% incorrect or incomplete diagnosis reported among severe respondents; this is not a population diagnosis-rate study.'},
     eligible:{value:30,quality:'Analyst assumption',source:'https://www.accessdata.fda.gov/drugsatfda_docs/label/2024/218466s000lbl.pdf',note:'FDA eligibility is age ≥2 with severe PROS requiring systemic therapy. No published population percentage was identified; 30% is an editable scenario assumption.'},
-    treated:{value:57.1,quality:'Observed · small cohort',source:'https://ascopubs.org/doi/10.1200/JCO.2022.40.16_suppl.e18707',note:'57.1% received PROS-related medications in a 14-patient real-world cohort; use cautiously as a treatment proxy.'},
-    accessible:{value:70,quality:'Analyst assumption',source:'https://us.vijoice.com/pik3ca-related-overgrowth-spectrum-pros/patient-support/financial-support',note:'Public sources describe access support but do not quantify population access. 70% is an editable payer/access assumption.'},
     share:{value:40,quality:'Analyst assumption',source:'https://www.novartis.com/us-en/news/media-releases/fda-approves-novartis-vijoice-alpelisib-first-and-only-treatment-select-patients-pik3ca-related-overgrowth-spectrum-pros',note:'Vijoice was the first FDA-approved PROS therapy. A 40% mature share is an editable commercial assumption, not a reported market share.'},
     price:{list:422500,gtn:15,quality:'Public WAC + net assumption',source:'https://dfr.oregon.gov/drugtransparency/Documents/Prescription-Drug-Price-Transparency-Annual-Report-2022.pdf',note:'Public WAC was $32,500 per 28-day carton; $422,500 annualizes 13 cartons. Real net price is not public, so the 15% gross-to-net discount remains editable.'},
     therapies:[{brand:'Vijoice',generic:'alpelisib',manufacturer:'Novartis',basis:'FDA-approved for severe manifestations of PROS requiring systemic therapy in patients aged 2 years and older',source:'https://www.accessdata.fda.gov/drugsatfda_docs/label/2024/218466s000lbl.pdf'}]
@@ -3142,8 +3138,6 @@ function resetPatientAssumptionEvidence(diseaseName='Selected disease'){
     epidemiology:missing('epidemiology'),
     diagnosed:missing('diagnosis-rate'),
     eligible:missing('eligibility-rate'),
-    treated:missing('treatment-rate'),
-    accessible:missing('access-rate'),
     share:missing('market-share'),
     price:missing('price')
   };
@@ -3602,15 +3596,13 @@ function applyPatientProfile(code){
   $('#pm-metric').value = profile.epidemiology.metric;
   $('#pm-diagnosed').value = profile.diagnosed.value;
   $('#pm-eligible').value = profile.eligible.value;
-  $('#pm-treated').value = profile.treated.value;
-  $('#pm-accessible').value = profile.accessible.value;
   $('#pm-share').value = profile.share.value;
   $('#pm-list-price').value = profile.price.list;
   $('#pm-gtn').value = profile.price.gtn;
   updatePatientNetPrice();
   patientAssumptionEvidence = {
     epidemiology:{...profile.epidemiology}, diagnosed:{...profile.diagnosed}, eligible:{...profile.eligible},
-    treated:{...profile.treated}, accessible:{...profile.accessible}, share:{...profile.share}, price:{...profile.price}
+    share:{...profile.share}, price:{...profile.price}
   };
   $('#pm-source-url').value = profile.epidemiology.source;
   patientEvidence.epi = {
@@ -3628,7 +3620,6 @@ function evidenceValue(step){
   const values = {
     epidemiology:$('#pm-epi-mode').value==='patients' ? `${fmtPatients(patientNumber('pm-epi-value'))} patients` : `${patientNumber('pm-epi-value')} / 100k`,
     diagnosed:`${patientNumber('pm-diagnosed')}%`, eligible:`${patientNumber('pm-eligible')}%`,
-    treated:`${patientNumber('pm-treated')}%`, accessible:`${patientNumber('pm-accessible')}%`,
     share:`${patientNumber('pm-share')}%`, price:`${fmtUSD(patientNumber('pm-price'))} net / year`
   };
   return values[step] || '—';
@@ -3647,7 +3638,7 @@ function patientEvidenceState(step,evidence,edited=false){
 function syncPatientEvidenceStyles(){
   const controlMap = {
     epidemiology:['pm-epi-value'], diagnosed:['pm-diagnosed'], eligible:['pm-eligible'],
-    treated:['pm-treated'], accessible:['pm-accessible'], share:['pm-share'],
+    share:['pm-share'],
     price:['pm-list-price','pm-gtn','pm-price']
   };
   Object.entries(controlMap).forEach(([step,ids])=>{
@@ -3660,8 +3651,7 @@ function syncPatientEvidenceStyles(){
 function renderPatientEvidenceLedger(){
   const steps = [
     ['epidemiology','Population → epidemiology'],['diagnosed','Epidemiology → diagnosed'],
-    ['eligible','Diagnosed → eligible'],['treated','Eligible → treated'],
-    ['accessible','Treated → accessible'],['share','Accessible → product market share'],
+    ['eligible','Diagnosed → eligible'],['share','Eligible → product market share'],
     ['price','List price → net price']
   ];
   $('#pm-evidence-ledger').innerHTML = steps.map(([key,label])=>{
@@ -3687,7 +3677,7 @@ async function searchPatientLiterature(){
   box.textContent = 'Researching disease-specific evidence for every funnel step…';
   try{
     const cleanDisease = disease.replace(/[\"']/g,' ').trim();
-    const query = `TITLE_ABS:\"${cleanDisease}\" AND (prevalence OR incidence OR diagnosis OR eligibility OR treatment OR access OR reimbursement OR cost OR price OR therapy)`;
+    const query = `TITLE_ABS:\"${cleanDisease}\" AND (prevalence OR incidence OR diagnosis OR eligibility OR treatment OR \"standard of care\" OR therapy)`;
     const url = `${PATIENT_API.europePmc}?query=${encodeURIComponent(query)}&format=json&resultType=core&pageSize=25`;
     const payload = await fetchPatientJSON(url);
     const results = payload && payload.resultList && Array.isArray(payload.resultList.result) ? payload.resultList.result : [];
@@ -3698,8 +3688,6 @@ async function searchPatientLiterature(){
     const researchSteps = {
       diagnosed:['diagnos','diagnostic delay','underdiagnos','misdiagnos'],
       eligible:['eligib','severity','severe','treatment criteria','systemic therapy','phenotype'],
-      treated:['treat','therapy','medication','real-world','natural history'],
-      accessible:['access','reimbursement','healthcare utilization','burden','payer'],
       share:['standard of care','approved','therapeutic landscape','treatment landscape','therapy']
     };
     const resultText = result=>`${result.title||''} ${result.abstractText||''} ${(result.keywordList&&result.keywordList.keyword||[]).join(' ')}`.toLowerCase();
@@ -3899,9 +3887,7 @@ function exportPatientWorkbook(){
     ['Population',patientNumber('pm-population')*1e6,'People',patientEvidence.population?.url||''],
     ['Diagnosis rate',patientNumber('pm-diagnosed')/100,'Share of epidemiology population',patientAssumptionEvidence.diagnosed?.source||''],
     ['Eligibility rate',patientNumber('pm-eligible')/100,'Share of diagnosed patients',patientAssumptionEvidence.eligible?.source||''],
-    ['Treatment rate',patientNumber('pm-treated')/100,'Share of eligible patients',patientAssumptionEvidence.treated?.source||''],
-    ['Access rate',patientNumber('pm-accessible')/100,'Share of treated patients',patientAssumptionEvidence.accessible?.source||''],
-    ['Peak market share',patientNumber('pm-share')/100,`${ENTRY_LABEL[currentEntryOrder()]} year-10 sales-share proxy`,patientAssumptionEvidence.share?.source||''],
+    ['Peak product market share',patientNumber('pm-share')/100,`Share of eligible patients receiving the product; includes treatment uptake, payer access and competition. ${ENTRY_LABEL[currentEntryOrder()]} year-10 sales-share proxy.`,patientAssumptionEvidence.share?.source||''],
     ['Annual list / WAC price',patientNumber('pm-list-price'),'USD per patient per year',patientAssumptionEvidence.price?.source||''],
     ['Gross-to-net discount',patientNumber('pm-gtn')/100,'Discount from list / WAC',patientAssumptionEvidence.price?.source||''],
     ['Annual net price',patientNumber('pm-price'),'USD per patient per year',patientAssumptionEvidence.price?.source||''],
@@ -3914,8 +3900,8 @@ function exportPatientWorkbook(){
     ['Time-to-peak therapeutic area',therapeuticAreaForDisease(disease),'US/worldwide median selected from geography',COMMERCIAL_SOURCES.timeToPeak]
   ];
   const assumptionsFormats = [];
-  [8,9,10,11,12,14,16,17].forEach(row=>assumptionsFormats.push({cell:`B${row}`,format:'0.0%'}));
-  [13,15].forEach(row=>assumptionsFormats.push({cell:`B${row}`,format:'$#,##0'}));
+  [8,9,10,12,14,15].forEach(row=>assumptionsFormats.push({cell:`B${row}`,format:'0.0%'}));
+  [11,13].forEach(row=>assumptionsFormats.push({cell:`B${row}`,format:'$#,##0'}));
   const assumptionLinks = assumptions.map((row,index)=>({cell:`D${index+1}`,url:row[3]})).filter(item=>item.url);
 
   const forecastRows = [
@@ -3923,8 +3909,6 @@ function exportPatientWorkbook(){
     ['Epidemiology',...patientForecast.forecast.map(row=>row.epidemiology)],
     ['Diagnosed',...patientForecast.forecast.map(row=>row.diagnosed)],
     ['Eligible',...patientForecast.forecast.map(row=>row.eligible)],
-    ['Treated',...patientForecast.forecast.map(row=>row.treated)],
-    ['Accessible',...patientForecast.forecast.map(row=>row.accessible)],
     ['Product market share',...patientForecast.forecast.map(row=>row.share)],
     ['Patients at market share',...patientForecast.forecast.map(row=>row.productPatients)],
     ['Net price (USD)',...patientForecast.forecast.map(row=>row.price)],
@@ -3936,22 +3920,20 @@ function exportPatientWorkbook(){
     const previousColumn = index ? XLSX.utils.encode_col(index) : '';
     const epiFormula = index===0
       ? ($('#pm-epi-mode').value==='patients'?`=Assumptions!$B$6`:`=Assumptions!$B$7*Assumptions!$B$6/100000`)
-      : `=${previousColumn}2*(1+Assumptions!$B$16)`;
+      : `=${previousColumn}2*(1+Assumptions!$B$14)`;
     forecastFormulas.push(
       {cell:`${column}2`,formula:epiFormula,value:row.epidemiology,format:'#,##0'},
       {cell:`${column}3`,formula:`=${column}2*Assumptions!$B$8`,value:row.diagnosed,format:'#,##0'},
       {cell:`${column}4`,formula:`=${column}3*Assumptions!$B$9`,value:row.eligible,format:'#,##0'},
-      {cell:`${column}5`,formula:`=${column}4*Assumptions!$B$10`,value:row.treated,format:'#,##0'},
-      {cell:`${column}6`,formula:`=${column}5*Assumptions!$B$11`,value:row.accessible,format:'#,##0'},
-      {cell:`${column}7`,formula:`=Assumptions!$B$12*${Number(row.rampShare.toFixed(6))}`,value:row.share,format:'0.0%'},
-      {cell:`${column}8`,formula:`=${column}6*${column}7`,value:row.productPatients,format:'#,##0'},
-      {cell:`${column}9`,formula:index===0?`=Assumptions!$B$15`:`=${previousColumn}9*(1+Assumptions!$B$17)`,value:row.price,format:'$#,##0'},
-      {cell:`${column}10`,formula:`=${column}8*${column}9`,value:row.revenue,format:'$#,##0'}
+      {cell:`${column}5`,formula:`=Assumptions!$B$10*${Number(row.rampShare.toFixed(6))}`,value:row.share,format:'0.0%'},
+      {cell:`${column}6`,formula:`=${column}4*${column}5`,value:row.productPatients,format:'#,##0'},
+      {cell:`${column}7`,formula:index===0?`=Assumptions!$B$13`:`=${previousColumn}7*(1+Assumptions!$B$15)`,value:row.price,format:'$#,##0'},
+      {cell:`${column}8`,formula:`=${column}6*${column}7`,value:row.revenue,format:'$#,##0'}
     );
   });
   const evidenceSteps = [
     ['Population → epidemiology','epidemiology'],['Epidemiology → diagnosed','diagnosed'],['Diagnosed → eligible','eligible'],
-    ['Eligible → treated','treated'],['Treated → accessible','accessible'],['Accessible → product market share','share'],['List price → net price','price']
+    ['Eligible → product market share','share'],['List price → net price','price']
   ];
   const evidenceRows = [['Funnel step','Current value','Evidence quality','Rationale','Source URL']];
   evidenceSteps.forEach(([label,key])=>{
@@ -4078,8 +4060,6 @@ function buildPatientScenario(rateFactor=1, priceFactor=1){
   const rate = id => clampPatient(patientNumber(id,0)*rateFactor,0,100)/100;
   const diagnosisRate = rate('pm-diagnosed');
   const eligibleRate = rate('pm-eligible');
-  const treatedRate = rate('pm-treated');
-  const accessibleRate = rate('pm-accessible');
   const targetShare = rate('pm-share');
   const basePrice = Math.max(0,patientNumber('pm-price',0))*priceFactor;
   const growth = clampPatient(patientNumber('pm-growth',0),-20,50)/100;
@@ -4092,20 +4072,16 @@ function buildPatientScenario(rateFactor=1, priceFactor=1){
   funnel.push({label:$('#pm-metric').value==='incidence'?'Annual incident patients':'Epidemiology', value:epidemiology});
   funnel.push({label:'Diagnosed patients', value:funnel[0].value*diagnosisRate});
   funnel.push({label:'Eligible patients', value:funnel[1].value*eligibleRate});
-  funnel.push({label:'Treated patients', value:funnel[2].value*treatedRate});
-  funnel.push({label:'Accessible population', value:funnel[3].value*accessibleRate});
-  funnel.push({label:'Product market share', value:funnel[4].value*targetShare, displayValue:`${(targetShare*100).toFixed(1)}% · ${fmtPatients(funnel[4].value*targetShare)} patients`});
+  funnel.push({label:'Product market share of eligible patients', value:funnel[2].value*targetShare, displayValue:`${(targetShare*100).toFixed(1)}% · ${fmtPatients(funnel[2].value*targetShare)} patients`});
 
   const forecast = ramp.map((rampShare,index)=>{
     const epi = epidemiology*Math.pow(1+growth,index);
     const diagnosed = epi*diagnosisRate;
     const eligible = diagnosed*eligibleRate;
-    const treated = eligible*treatedRate;
-    const accessible = treated*accessibleRate;
     const share = targetShare*rampShare;
-    const productPatients = accessible*share;
+    const productPatients = eligible*share;
     const price = basePrice*Math.pow(1+priceGrowth,index);
-    return {year:launchYear+index, epidemiology:epi, diagnosed, eligible, treated, accessible, rampShare, productPatients, share, price, revenue:productPatients*price};
+    return {year:launchYear+index, epidemiology:epi, diagnosed, eligible, rampShare, productPatients, share, price, revenue:productPatients*price};
   });
   return {funnel,forecast,peakRevenue:Math.max(0,...forecast.map(row=>row.revenue))};
 }
@@ -4131,7 +4107,7 @@ function renderPatientModel(){
       <div class="funnel-track"><div class="funnel-fill" style="width:${clampPatient(step.value/denominator*100,0,100).toFixed(2)}%"></div></div>
       <div class="step-value">${step.displayValue||fmtPatients(step.value)}</div>
     </div>`).join('');
-  $('#pm-peak-bridge').innerHTML = `<b>Peak-sales bridge · ${peakRow.year}:</b> ${fmtPatients(peakRow.epidemiology)} epidemiology × ${patientNumber('pm-diagnosed')}% diagnosed × ${patientNumber('pm-eligible')}% eligible × ${patientNumber('pm-treated')}% treated × ${patientNumber('pm-accessible')}% accessible × <b>${(peakRow.share*100).toFixed(1)}% product market share</b> = ${fmtPatients(peakRow.productPatients)} patients at share × ${fmtUSD(peakRow.price)} annual net price = <b>${fmtUSD(peakRow.revenue)} peak sales</b>.`;
+  $('#pm-peak-bridge').innerHTML = `<b>Peak-sales bridge · ${peakRow.year}:</b> ${fmtPatients(peakRow.epidemiology)} epidemiology × ${patientNumber('pm-diagnosed')}% diagnosed × ${patientNumber('pm-eligible')}% eligible × <b>${(peakRow.share*100).toFixed(1)}% product market share of eligible patients</b> = ${fmtPatients(peakRow.productPatients)} patients at share × ${fmtUSD(peakRow.price)} annual net price = <b>${fmtUSD(peakRow.revenue)} peak sales</b>.`;
   renderPatientEvidenceLedger();
   $('#pm-scenarios').innerHTML = scenarios.map(scenario=>{
     const last = scenario.model.forecast[scenario.model.forecast.length-1];
@@ -4146,8 +4122,6 @@ function renderPatientModel(){
     ['Epidemiology',row=>fmtPatients(row.epidemiology)],
     ['Diagnosed',row=>fmtPatients(row.diagnosed)],
     ['Eligible',row=>fmtPatients(row.eligible)],
-    ['Treated',row=>fmtPatients(row.treated)],
-    ['Accessible',row=>fmtPatients(row.accessible)],
     ['Product market share',row=>`${(row.share*100).toFixed(1)}%`],
     ['Patients at market share',row=>fmtPatients(row.productPatients)],
     ['Net price',row=>fmtUSD(row.price)],
@@ -5239,11 +5213,10 @@ document.body.addEventListener('click', (e)=>{
 // patient model controls and official-source lookup
 const PATIENT_EVIDENCE_INPUT_MAP = {
   'pm-epi-mode':'epidemiology','pm-epi-value':'epidemiology','pm-metric':'epidemiology',
-  'pm-diagnosed':'diagnosed','pm-eligible':'eligible','pm-treated':'treated',
-  'pm-accessible':'accessible','pm-share':'share','pm-list-price':'price','pm-gtn':'price'
+  'pm-diagnosed':'diagnosed','pm-eligible':'eligible','pm-share':'share','pm-list-price':'price','pm-gtn':'price'
 };
 ['pm-epi-mode','pm-epi-value','pm-population','pm-metric','pm-diagnosed','pm-eligible',
- 'pm-treated','pm-accessible','pm-share','pm-list-price','pm-gtn','pm-growth','pm-price-growth','pm-horizon','pm-ramp']
+ 'pm-share','pm-list-price','pm-gtn','pm-growth','pm-price-growth','pm-horizon','pm-ramp']
   .forEach(id=>{
     const element = $('#'+id);
     if(element){
@@ -5317,8 +5290,6 @@ $('#pm-load-demo').addEventListener('click',()=>{
   $('#pm-metric').value = 'incidence';
   $('#pm-diagnosed').value = '70';
   $('#pm-eligible').value = '65';
-  $('#pm-treated').value = '70';
-  $('#pm-accessible').value = '65';
   $('#pm-list-price').value = '350000';
   $('#pm-gtn').value = '0';
   $('#pm-growth').value = '0';
