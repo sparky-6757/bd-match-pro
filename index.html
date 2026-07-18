@@ -1178,7 +1178,7 @@ body.lang-en .bd-hero h1.headline{line-height:.98}
             </div>
           </div>
           <div class="patient-source" id="pm-source-status" aria-live="polite">
-            <div id="pm-source-message">Search rare and common diseases. Rare-disease epidemiology uses Orphadata. Common diseases are normalized with NLM, checked against curated sources, then researched in Europe PMC for a population prevalence, incidence, or explicit patient-pool estimate.</div>
+            <div id="pm-source-message">Search rare and common diseases. The lookup uses a source ladder: Orphadata for rare diseases; curated registries and CDC PLACES for supported US chronic diseases; then guarded Europe PMC extraction for prevalence, incidence, or an explicit patient pool.</div>
             <select id="pm-match" class="patient-source-select" aria-label="Choose the intended Orphadata disease"></select>
             <div class="patient-source-tools">
               <button class="source-link-button" id="pm-literature" type="button">Research the full disease funnel</button>
@@ -1341,7 +1341,8 @@ product_patients      = accessible_population × market_share
 annual_revenue        = product_patients × annual_net_price
 annual_net_price      = annual_list_or_WAC_price × (1 - gross_to_net_discount)
 
-Automatic epidemiology lookup: Orphadata for rare diseases; NLM terminology normalization for common diseases; curated cited estimates where available; automated Europe PMC population-epidemiology retrieval and numeric extraction for other common diseases; and World Bank population.
+Automatic epidemiology lookup: Orphadata for rare diseases; NLM terminology normalization for common diseases; curated cited estimates where available; CDC PLACES modeled adult prevalence for supported US chronic conditions; automated Europe PMC population-epidemiology retrieval and numeric extraction for other common diseases; and World Bank population.
+No single free public API covers every disease and geography. The engine therefore follows that source ladder and leaves a value blank when no defensible population estimate passes the checks; it does not turn terminology matches or unrelated study rates into patient counts.
 For literature-derived estimates, the engine ranks disease focus, population design, geography and metric context, normalizes percentages and rates to patients per 100,000, and labels the result as review-required. It does not silently treat a study cohort, confidence interval or unrelated outcome rate as population epidemiology. Each conversion rate, price basis, access/share assumption, growth, forecast horizon and share ramp remains editable; the source and rationale are retained and edited values are flagged. Competition searches use openFDA label text and active interventional studies from ClinicalTrials.gov; Excel exports retain the assumptions, formulas, sources and time series.</div>
 
         <h3 style="margin-top:28px"><span class="zh-txt">1 · 创新药 rNPV 模型(参数路径)</span><span class="en-txt">1 · New drug rNPV (parametric path)</span></h3>
@@ -1409,7 +1410,7 @@ royalty rate:  Ph1 8-11% · Ph2 10-13% · Ph3 12-16% · Mkt 14-20%
             <li><span class="zh-txt"><b>PoS 默认值:</b> BIO/QLS/Informa《Clinical Development Success Rates 2011-2020》行业基准。</span><span class="en-txt"><b>PoS defaults:</b> BIO/QLS/Informa <i>Clinical Development Success Rates 2011-2020</i> industry benchmark.</span></li>
             <li><span class="en-txt"><b>Order-of-entry market share:</b> Cha &amp; Yu, McKinsey, <a href="https://www.mckinsey.com/~/media/mckinsey/industries/pharmaceuticals%20and%20medical%20products/our%20insights/pharmas%20first%20to%20market%20advantage/pharmas%20first%20to%20market%20advantage.pdf" target="_blank" rel="noopener">Pharma's first-to-market advantage</a>. Average sales share in year 10 after the first class launch is used as an editable peak-share proxy.</span></li>
             <li><span class="en-txt"><b>Time to peak sales:</b> Alvarez, Saucy &amp; Saacks, <a href="https://doi.org/10.1038/d41573-026-00104-7" target="_blank" rel="noopener">Nature Reviews Drug Discovery (2026)</a>. US/worldwide therapeutic-area medians drive the default ramp duration.</span></li>
-            <li><span class="en-txt"><b>Common-disease epidemiology:</b> disease names use the <a href="https://clinicaltables.nlm.nih.gov/apidoc/conditions/v3/doc.html" target="_blank" rel="noopener">NLM Conditions API</a>. Curated examples include rheumatoid arthritis from the <a href="https://pubmed.ncbi.nlm.nih.gov/37795020/" target="_blank" rel="noopener">GBD 2021 analysis</a> and <a href="https://www.who.int/news-room/fact-sheets/detail/rheumatoid-arthritis" target="_blank" rel="noopener">WHO</a>, and bladder cancer from <a href="https://gco.iarc.who.int/media/globocan/factsheets/cancers/30-bladder-fact-sheet.pdf" target="_blank" rel="noopener">IARC GLOBOCAN</a> and <a href="https://seer.cancer.gov/statfacts/html/urinb.html" target="_blank" rel="noopener">SEER</a>. All other normalized common-disease queries run through the <a href="https://europepmc.org/RestfulWebService" target="_blank" rel="noopener">Europe PMC REST API</a> for disease-specific population epidemiology.</span></li>
+            <li><span class="en-txt"><b>Common-disease epidemiology:</b> disease names use the <a href="https://clinicaltables.nlm.nih.gov/apidoc/conditions/v3/doc.html" target="_blank" rel="noopener">NLM Conditions API</a>. Curated examples include rheumatoid arthritis from the <a href="https://pubmed.ncbi.nlm.nih.gov/37795020/" target="_blank" rel="noopener">GBD 2021 analysis</a> and <a href="https://www.who.int/news-room/fact-sheets/detail/rheumatoid-arthritis" target="_blank" rel="noopener">WHO</a>, and bladder cancer from <a href="https://gco.iarc.who.int/media/globocan/factsheets/cancers/30-bladder-fact-sheet.pdf" target="_blank" rel="noopener">IARC GLOBOCAN</a> and <a href="https://seer.cancer.gov/statfacts/html/urinb.html" target="_blank" rel="noopener">SEER</a>. Supported US adult chronic diseases use the <a href="https://www.cdc.gov/places/tools/explore-places-data-portal.html" target="_blank" rel="noopener">CDC PLACES 2025 release</a>; other normalized queries run through the <a href="https://europepmc.org/RestfulWebService" target="_blank" rel="noopener">Europe PMC REST API</a> for disease-specific population epidemiology.</span></li>
             <li><span class="zh-txt"><b>可比交易数据库 (DEALS_DB):</b> 公司新闻稿、SEC 8-K/20-F 文件、BioPharma Dive / FiercePharma / Endpoints News 报道,人工录入,聚焦中国-海外跨境授权交易。当前 <span id="m-deal-count-2">—</span> 笔。</span><span class="en-txt"><b>Comp database (DEALS_DB):</b> public company disclosures and specialist BD&L reporting, supplemented with the supplied BioBucks 2026 tracker. Coverage spans US, Europe, Asia and RoW regional and global licenses. Currently <span id="m-deal-count-en-2">—</span> deals.</span></li>
             <li><span class="zh-txt"><b>买方财务:</b> FY25 年报(MNC)或最近季报年化(中等市值);现金 = 现金+短期投资。</span><span class="en-txt"><b>Buyer financials:</b> FY25 annual reports (MNCs) or latest quarterly annualized (mid-caps); cash = cash + short-term investments.</span></li>
           </ul>
@@ -1421,7 +1422,7 @@ royalty rate:  Ph1 8-11% · Ph2 10-13% · Ph3 12-16% · Mkt 14-20%
             <li><span class="zh-txt"><b>biobucks 膨胀:</b> "总额"通常含发生概率较低的远期里程碑(销售里程碑常被高估)。</span><span class="en-txt"><b>Biobucks inflation:</b> reported "total deal value" often inflates distant sales milestones with low realization probability.</span></li>
             <li><span class="zh-txt"><b>类似药未做回归:</b> 类似药交易在 DEALS_DB 中样本极少,v1.0 仅用参数路径。</span><span class="en-txt"><b>No biosim regression:</b> too few biosim deals in DEALS_DB; v1.0 uses parametric only.</span></li>
             <li><span class="zh-txt"><b>买方近期活跃度更新:</b> 2025-Q4 起的并购/授权动作需要社区帮助持续刷新。</span><span class="en-txt"><b>Buyer recency:</b> deal activity since 2025-Q4 needs ongoing community refresh.</span></li>
-            <li><span class="en-txt"><b>Automated epidemiology:</b> literature-derived values are source-linked, geography-ranked and marked review-required. Publication abstracts can omit population definitions or report heterogeneous estimates, so users should confirm the full paper before external use.</span></li>
+            <li><span class="en-txt"><b>Automated epidemiology:</b> there is no universal, free, unauthenticated disease-burden API. CDC PLACES covers a defined set of US adult measures, Orphadata covers rare diseases, and other literature-derived values are source-linked, geography-ranked and marked review-required. Publication abstracts can omit population definitions or report heterogeneous estimates, so users should confirm the full paper before external use.</span></li>
           </ul>
         </div>
 
@@ -3028,6 +3029,7 @@ const PATIENT_API = {
   conditions: 'https://clinicaltables.nlm.nih.gov/api/conditions/v3/search',
   worldBank: 'https://api.worldbank.org/v2',
   europePmc: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search',
+  cdcPlaces: 'https://data.cdc.gov/resource/i46a-9kgh.json',
   clinicalTrials: 'https://clinicaltrials.gov/api/v2/studies',
   openFdaLabels: 'https://api.fda.gov/drug/label.json',
   cmsNadac: 'https://data.medicaid.gov/api/1/datastore/query/fbb83258-11c7-47f5-8b18-5f8e79f7e704/0'
@@ -3084,6 +3086,24 @@ const COMMON_EPIDEMIOLOGY_PROFILES = {
     }
   }
 };
+
+// CDC PLACES provides nationally consistent, modeled 2023 crude prevalence
+// for a defined set of adult chronic conditions. It is deliberately mapped
+// only to exact disease concepts; a generic cancer measure, for example, must
+// never be substituted for a site-specific cancer.
+const CDC_PLACES_MEASURES = {
+  arthritis:{field:'arthritis_crudeprev',label:'arthritis',aliases:['arthritis','osteoarthritis']},
+  hypertension:{field:'bphigh_crudeprev',label:'high blood pressure',aliases:['hypertension','high blood pressure','essential hypertension']},
+  cancer:{field:'cancer_crudeprev',label:'non-skin cancer or melanoma',aliases:['cancer','malignant neoplasm']},
+  asthma:{field:'casthma_crudeprev',label:'current asthma',aliases:['asthma','current asthma','bronchial asthma']},
+  coronary_heart_disease:{field:'chd_crudeprev',label:'coronary heart disease',aliases:['coronary heart disease','ischemic heart disease','ischaemic heart disease','coronary artery disease']},
+  copd:{field:'copd_crudeprev',label:'chronic obstructive pulmonary disease',aliases:['copd','chronic obstructive pulmonary disease','chronic obstructive lung disease']},
+  depression:{field:'depression_crudeprev',label:'depression',aliases:['depression','depressive disorder','major depressive disorder']},
+  diabetes:{field:'diabetes_crudeprev',label:'diagnosed diabetes',aliases:['diabetes','diabetes mellitus','type 2 diabetes','type 2 diabetes mellitus']},
+  obesity:{field:'obesity_crudeprev',label:'obesity',aliases:['obesity','adult obesity']},
+  stroke:{field:'stroke_crudeprev',label:'stroke',aliases:['stroke','cerebrovascular accident']}
+};
+const cdcPlacesCache = new Map();
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char=>({
   '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
@@ -3288,6 +3308,55 @@ function applyCommonEpidemiologyProfile(diseaseName, geography=$('#pm-geography'
   return true;
 }
 
+function findCdcPlacesMeasure(diseaseName=''){
+  const normalized = String(diseaseName).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  return Object.entries(CDC_PLACES_MEASURES).find(([,measure])=>measure.aliases.includes(normalized)) || null;
+}
+
+function cdcPlacesQueryUrl(field){
+  const params = new URLSearchParams();
+  params.set('$select',`sum(totalpop18plus*${field}/100) as patients,sum(totalpop18plus) as adults`);
+  return `${PATIENT_API.cdcPlaces}?${params.toString()}`;
+}
+
+async function applyCdcPlacesEpidemiology(diseaseName,geography=$('#pm-geography').value){
+  if(geography!=='USA') return false;
+  const found = findCdcPlacesMeasure(diseaseName);
+  if(!found) return false;
+  const [key,measure] = found;
+  const source = cdcPlacesQueryUrl(measure.field);
+  let aggregate = cdcPlacesCache.get(key);
+  if(!aggregate){
+    const payload = await fetchPatientJSON(source);
+    const row = Array.isArray(payload) ? payload[0] : null;
+    aggregate = {patients:Number(row?.patients),adults:Number(row?.adults)};
+    if(!Number.isFinite(aggregate.patients) || aggregate.patients<=0 || !Number.isFinite(aggregate.adults) || aggregate.adults<=0) return false;
+    cdcPlacesCache.set(key,aggregate);
+  }
+  const patients = Math.round(aggregate.patients);
+  const rate = aggregate.patients/aggregate.adults*100000;
+  resetPatientAssumptionEvidence(diseaseName);
+  activeCommonEpidemiologyKey = `cdc_places_${key}`;
+  $('#pm-disease').value = diseaseName;
+  $('#pm-epi-mode').value = 'patients';
+  $('#pm-epi-value').value = patients;
+  $('#pm-metric').value = 'prevalence';
+  $('#pm-source-url').value = source;
+  const note = `CDC PLACES 2025 release: modeled 2023 crude prevalence of ${measure.label} among US adults. The national patient pool is the population-weighted sum of county estimates (${fmtPatients(patients)} adults; ${Number(rate.toFixed(1))} per 100,000 adults). This is a modeled adult estimate, not a claims-derived count, pediatric estimate, or indication-eligible population.`;
+  patientEvidence.epi = {
+    description:`${diseaseName}; ${fmtPatients(patients)} US adults; CDC PLACES modeled 2023 crude prevalence (${Number(rate.toFixed(1))} per 100,000 adults).`,
+    url:source,
+    label:'CDC PLACES API result'
+  };
+  patientAssumptionEvidence.epidemiology = {
+    verified:true,quality:'CDC PLACES modeled adult prevalence',source,note
+  };
+  patientEvidence.error = '';
+  applyEntryShareAssumption(false);
+  syncTimeToPeakAssumptions(false);
+  return true;
+}
+
 const COMMON_EPI_GEO = {
   USA:{label:'United States',terms:['united states','u.s.',' usa ','american','national health and nutrition examination survey','nhanes']},
   EUU:{label:'European Union / Europe',terms:['european union',' europe ','european',' france','french',' germany','german',' italy','italian',' spain','spanish',' netherlands','dutch',' belgium','belgian',' sweden','swedish',' denmark','danish',' finland','finnish',' poland','polish',' portugal','portuguese',' austria','austrian',' ireland','irish',' greece','greek',' czech',' romania']},
@@ -3454,9 +3523,26 @@ async function findCommonLiteratureEpidemiology(diseaseName,geography=$('#pm-geo
     results = payload && payload.resultList && Array.isArray(payload.resultList.result) ? payload.resultList.result : [];
     commonEpidemiologySearchCache.set(cacheKey,results);
   }
-  const ranked = results.flatMap(result=>extractCommonEpidemiology(result,cleanDisease,geography))
+  let ranked = results.flatMap(result=>extractCommonEpidemiology(result,cleanDisease,geography))
     .filter(candidate=>candidate.score>=5)
     .sort((a,b)=>b.score-a.score || b.year-a.year);
+  // Some valid population studies do not put “prevalence of …” in the title.
+  // Only when the high-precision title search yields no usable number, broaden
+  // to title/abstract while retaining the same disease-focus and numeric guards.
+  if(!ranked.length){
+    const broadKey = `${cacheKey}|broad`;
+    let broadResults = commonEpidemiologySearchCache.get(broadKey);
+    if(!broadResults){
+      const broadQuery = `TITLE_ABS:"${cleanDisease}" AND (prevalence OR incidence OR epidemiology OR "population-based") AND HAS_ABSTRACT:Y`;
+      const broadUrl = `${PATIENT_API.europePmc}?query=${encodeURIComponent(broadQuery)}&format=json&resultType=core&pageSize=100&synonym=false&sort=${encodeURIComponent('CITED desc')}`;
+      const payload = await fetchPatientJSON(broadUrl);
+      broadResults = payload && payload.resultList && Array.isArray(payload.resultList.result) ? payload.resultList.result : [];
+      commonEpidemiologySearchCache.set(broadKey,broadResults);
+    }
+    ranked = broadResults.flatMap(result=>extractCommonEpidemiology(result,cleanDisease,geography))
+      .filter(candidate=>candidate.score>=5)
+      .sort((a,b)=>b.score-a.score || b.year-a.year);
+  }
   const seen = new Set();
   return ranked.filter(candidate=>{
     const key = `${candidate.source}|${candidate.metric}|${candidate.mode}`;
@@ -4140,6 +4226,7 @@ async function resolveCommonDisease(query){
 
   patientStatus(`<b>${escapeHTML(diseaseName)} matched.</b> Searching disease-specific population epidemiology…`);
   const loadedCommonEpidemiology = applyCommonEpidemiologyProfile(diseaseName)
+    || await applyCdcPlacesEpidemiology(diseaseName,$('#pm-geography').value)
     || await applyCommonLiteratureEpidemiology(diseaseName,$('#pm-geography').value);
   if(!loadedCommonEpidemiology){
     resetPatientAssumptionEvidence(diseaseName);
@@ -4252,6 +4339,18 @@ async function refreshPatientPopulation(options={}){
   }
 }
 
+async function tryRareLiteratureFallback(diseaseName){
+  if(!diseaseName) return false;
+  patientStatus(`<b>${escapeHTML(diseaseName)} matched.</b> Orphadata has no usable numeric rate; checking population epidemiology literature…`);
+  const applied = await applyCommonLiteratureEpidemiology(diseaseName,$('#pm-geography').value);
+  if(!applied) return false;
+  await refreshPatientPopulation({quiet:true});
+  renderPatientEvidence();
+  renderPatientModel();
+  await searchPatientLiterature();
+  return true;
+}
+
 async function loadOrphaEpidemiology(code, matchedName=''){
   if(applyPatientProfile(code)){
     patientStatus('Loading disease-specific prevalence, funnel evidence, price evidence and population data…');
@@ -4268,6 +4367,7 @@ async function loadOrphaEpidemiology(code, matchedName=''){
     payload = await fetchPatientJSON(apiUrl);
   }catch(error){
     if(error.status===404){
+      if(await tryRareLiteratureFallback(matchedName||`ORPHA:${code}`)) return;
       setUnavailableOrphaRate(code,matchedName||`ORPHA:${code}`,'Orphadata recognizes the disease, but does not publish a numeric epidemiology record for it. Enter a sourced estimate manually.');
       return;
     }
@@ -4276,6 +4376,7 @@ async function loadOrphaEpidemiology(code, matchedName=''){
   let disease = payload && payload.data && payload.data.results;
   if(Array.isArray(disease)) disease = disease[0];
   if(!disease){
+    if(await tryRareLiteratureFallback(matchedName||`ORPHA:${code}`)) return;
     setUnavailableOrphaRate(code,matchedName||`ORPHA:${code}`,'Orphadata returned no numeric epidemiology record. Enter a sourced estimate manually.');
     return;
   }
@@ -4283,6 +4384,7 @@ async function loadOrphaEpidemiology(code, matchedName=''){
   const selected = selectOrphaPrevalence(records,$('#pm-geography').value);
   const diseaseName = safeEnglish(disease['Preferred term'],matchedName||$('#pm-disease').value.trim());
   if(!selected){
+    if(await tryRareLiteratureFallback(diseaseName)) return;
     const hasCountsOnly = records.some(record=>/cases|families/i.test(String(record.PrevalenceType||'')));
     setUnavailableOrphaRate(code,diseaseName,hasCountsOnly
       ? 'Orphadata reports cases or families, not a population-normalized rate. Those counts cannot safely be treated as patients per 100,000.'
@@ -5139,8 +5241,11 @@ $('#pm-geography').addEventListener('change',async()=>{
   patientEvidence.population = null;
   patientEvidence.error = '';
   const diseaseName = $('#pm-disease').value.trim();
-  if(commonKey==='literature'){
-    const applied = await applyCommonLiteratureEpidemiology(diseaseName,$('#pm-geography').value);
+  if(commonKey){
+    const geography = $('#pm-geography').value;
+    const applied = applyCommonEpidemiologyProfile(diseaseName,geography)
+      || await applyCdcPlacesEpidemiology(diseaseName,geography)
+      || await applyCommonLiteratureEpidemiology(diseaseName,geography);
     if(!applied){
       resetPatientAssumptionEvidence(diseaseName);
       $('#pm-epi-mode').value = 'rate';
@@ -5148,8 +5253,6 @@ $('#pm-geography').addEventListener('change',async()=>{
       $('#pm-source-url').value = '';
       patientEvidence.error = `No safely extractable population estimate was found for ${diseaseName} in the selected geography.`;
     }
-  }else if(commonKey){
-    applyCommonEpidemiologyProfile(diseaseName,$('#pm-geography').value);
   }
   syncTimeToPeakAssumptions(false);
   await refreshPatientPopulation({quiet:true});
