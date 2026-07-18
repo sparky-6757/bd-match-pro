@@ -250,6 +250,11 @@ body.lang-en .param-pos-grid label.current .pl-lbl::after{content:' ◀ Current'
 .patient-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
 .patient-actions .hint{margin-left:auto}
 .patient-table-wrap{width:100%;overflow-x:auto}
+.patient-table.transpose{min-width:max-content}
+.patient-table.transpose th:first-child{position:sticky;left:0;z-index:2;min-width:190px;background:#fff;text-align:left}
+.patient-table.transpose thead th:first-child{z-index:3;background:var(--paper)}
+.patient-table.transpose th:not(:first-child),.patient-table.transpose td{min-width:118px;text-align:right}
+.patient-table.transpose tbody th{font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--ink);font-weight:600;border-bottom:1px solid var(--cream-2)}
 .patient-table{min-width:620px}
 .patient-table td,.patient-table th{white-space:nowrap}
 .export-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 2px}
@@ -1271,8 +1276,8 @@ body.lang-en .bd-hero h1.headline{line-height:.98}
             </details>
             <div class="patient-scenarios" id="pm-scenarios"></div>
             <div class="patient-table-wrap">
-              <table class="table patient-table">
-                <thead><tr><th>Year</th><th class="num">Epidemiology</th><th class="num">Diagnosed</th><th class="num">Eligible</th><th class="num">Treated</th><th class="num">Accessible</th><th class="num">Market share</th><th class="num">Patients at market share</th><th class="num">Net price</th><th class="num">Revenue</th></tr></thead>
+              <table class="table patient-table transpose">
+                <thead id="pm-forecast-head"></thead>
                 <tbody id="pm-forecast-body"></tbody>
               </table>
             </div>
@@ -3913,23 +3918,35 @@ function exportPatientWorkbook(){
   [13,15].forEach(row=>assumptionsFormats.push({cell:`B${row}`,format:'$#,##0'}));
   const assumptionLinks = assumptions.map((row,index)=>({cell:`D${index+1}`,url:row[3]})).filter(item=>item.url);
 
-  const forecastRows = [['Year','Epidemiology','Diagnosed','Eligible','Treated','Accessible','Product market share','Patients at market share','Net price (USD)','Revenue (USD)']];
+  const forecastRows = [
+    ['Patient funnel',...patientForecast.forecast.map(row=>row.year)],
+    ['Epidemiology',...patientForecast.forecast.map(row=>row.epidemiology)],
+    ['Diagnosed',...patientForecast.forecast.map(row=>row.diagnosed)],
+    ['Eligible',...patientForecast.forecast.map(row=>row.eligible)],
+    ['Treated',...patientForecast.forecast.map(row=>row.treated)],
+    ['Accessible',...patientForecast.forecast.map(row=>row.accessible)],
+    ['Product market share',...patientForecast.forecast.map(row=>row.share)],
+    ['Patients at market share',...patientForecast.forecast.map(row=>row.productPatients)],
+    ['Net price (USD)',...patientForecast.forecast.map(row=>row.price)],
+    ['Revenue (USD)',...patientForecast.forecast.map(row=>row.revenue)]
+  ];
   const forecastFormulas = [];
   patientForecast.forecast.forEach((row,index)=>{
-    const excelRow = index+2;
-    forecastRows.push([row.year,row.epidemiology,row.diagnosed,row.eligible,row.treated,row.accessible,row.share,row.productPatients,row.price,row.revenue]);
+    const column = XLSX.utils.encode_col(index+1);
+    const previousColumn = index ? XLSX.utils.encode_col(index) : '';
     const epiFormula = index===0
       ? ($('#pm-epi-mode').value==='patients'?`=Assumptions!$B$6`:`=Assumptions!$B$7*Assumptions!$B$6/100000`)
-      : `=B${excelRow-1}*(1+Assumptions!$B$16)`;
+      : `=${previousColumn}2*(1+Assumptions!$B$16)`;
     forecastFormulas.push(
-      {cell:`B${excelRow}`,formula:epiFormula,value:row.epidemiology,format:'#,##0'},
-      {cell:`C${excelRow}`,formula:`=B${excelRow}*Assumptions!$B$8`,value:row.diagnosed,format:'#,##0'},
-      {cell:`D${excelRow}`,formula:`=C${excelRow}*Assumptions!$B$9`,value:row.eligible,format:'#,##0'},
-      {cell:`E${excelRow}`,formula:`=D${excelRow}*Assumptions!$B$10`,value:row.treated,format:'#,##0'},
-      {cell:`F${excelRow}`,formula:`=E${excelRow}*Assumptions!$B$11`,value:row.accessible,format:'#,##0'},
-      {cell:`H${excelRow}`,formula:`=F${excelRow}*G${excelRow}`,value:row.productPatients,format:'#,##0'},
-      {cell:`I${excelRow}`,formula:index===0?`=Assumptions!$B$15`:`=I${excelRow-1}*(1+Assumptions!$B$17)`,value:row.price,format:'$#,##0'},
-      {cell:`J${excelRow}`,formula:`=H${excelRow}*I${excelRow}`,value:row.revenue,format:'$#,##0'}
+      {cell:`${column}2`,formula:epiFormula,value:row.epidemiology,format:'#,##0'},
+      {cell:`${column}3`,formula:`=${column}2*Assumptions!$B$8`,value:row.diagnosed,format:'#,##0'},
+      {cell:`${column}4`,formula:`=${column}3*Assumptions!$B$9`,value:row.eligible,format:'#,##0'},
+      {cell:`${column}5`,formula:`=${column}4*Assumptions!$B$10`,value:row.treated,format:'#,##0'},
+      {cell:`${column}6`,formula:`=${column}5*Assumptions!$B$11`,value:row.accessible,format:'#,##0'},
+      {cell:`${column}7`,formula:`=Assumptions!$B$12*${Number(row.rampShare.toFixed(6))}`,value:row.share,format:'0.0%'},
+      {cell:`${column}8`,formula:`=${column}6*${column}7`,value:row.productPatients,format:'#,##0'},
+      {cell:`${column}9`,formula:index===0?`=Assumptions!$B$15`:`=${previousColumn}9*(1+Assumptions!$B$17)`,value:row.price,format:'$#,##0'},
+      {cell:`${column}10`,formula:`=${column}8*${column}9`,value:row.revenue,format:'$#,##0'}
     );
   });
   const evidenceSteps = [
@@ -3948,7 +3965,7 @@ function exportPatientWorkbook(){
   const competitionLinks = competitionRows.map((row,index)=>({cell:`G${index+1}`,url:row[6]})).filter(item=>item.url);
   const filename = `${disease.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,55)||'disease'}-patient-model.xlsx`;
   exportWorkbook(filename,[
-    {name:'Forecast',rows:forecastRows,widths:[10,16,14,14,14,14,14,17,17,18],formulas:forecastFormulas,autoFilter:true,freeze:{y:1}},
+    {name:'Forecast',rows:forecastRows,widths:[28,...patientForecast.forecast.map(()=>15)],formulas:forecastFormulas,freeze:{x:1,y:1}},
     {name:'Assumptions',rows:assumptions,widths:[28,22,42,70],formats:assumptionsFormats,links:assumptionLinks,autoFilter:true,freeze:{y:1}},
     {name:'Evidence',rows:evidenceRows,widths:[28,18,30,80,70],links:evidenceLinks,autoFilter:true,freeze:{y:1}},
     {name:'Competition',rows:competitionRows,widths:[20,30,24,24,26,70,70],links:competitionLinks,autoFilter:true,freeze:{y:1}}
@@ -4124,19 +4141,22 @@ function renderPatientModel(){
       <div class="scenario-sub">${(last.share*100).toFixed(1)}% market share · ${fmtPatients(last.productPatients)} patients at share in year ${base.forecast.length}</div>
     </div>`;
   }).join('');
-  $('#pm-forecast-body').innerHTML = base.forecast.map(row=>`
-    <tr>
-      <td class="mono">${row.year}</td>
-      <td class="num">${fmtPatients(row.epidemiology)}</td>
-      <td class="num">${fmtPatients(row.diagnosed)}</td>
-      <td class="num">${fmtPatients(row.eligible)}</td>
-      <td class="num">${fmtPatients(row.treated)}</td>
-      <td class="num">${fmtPatients(row.accessible)}</td>
-      <td class="num">${(row.share*100).toFixed(1)}%</td>
-      <td class="num">${fmtPatients(row.productPatients)}</td>
-      <td class="num">${fmtUSD(row.price)}</td>
-      <td class="num"><b>${fmtUSD(row.revenue)}</b></td>
-    </tr>`).join('');
+  $('#pm-forecast-head').innerHTML = `<tr><th>Patient funnel</th>${base.forecast.map(row=>`<th class="num mono">${row.year}</th>`).join('')}</tr>`;
+  const forecastMetrics = [
+    ['Epidemiology',row=>fmtPatients(row.epidemiology)],
+    ['Diagnosed',row=>fmtPatients(row.diagnosed)],
+    ['Eligible',row=>fmtPatients(row.eligible)],
+    ['Treated',row=>fmtPatients(row.treated)],
+    ['Accessible',row=>fmtPatients(row.accessible)],
+    ['Product market share',row=>`${(row.share*100).toFixed(1)}%`],
+    ['Patients at market share',row=>fmtPatients(row.productPatients)],
+    ['Net price',row=>fmtUSD(row.price)],
+    ['Revenue',row=>`<b>${fmtUSD(row.revenue)}</b>`]
+  ];
+  $('#pm-forecast-body').innerHTML = forecastMetrics.map(([label,format])=>`<tr>
+    <th scope="row">${label}</th>
+    ${base.forecast.map(row=>`<td class="num">${format(row)}</td>`).join('')}
+  </tr>`).join('');
 }
 
 async function fetchPatientJSON(url){
