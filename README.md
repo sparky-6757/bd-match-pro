@@ -1,5 +1,7 @@
 <div align="center">
 
+
+<div align="center">
 # BD Match Pro
 
 **BD Match Pro** is an open-source, AI-powered cross-border licensing engine for pharmaceutical assets. It tackles the first mile of biotech business development — *who would buy this asset, at what price, and via which deal structure?* — with data-driven, fully parametric, and transparent first-pass answers.
@@ -153,8 +155,3 @@ Released under the [MIT License](LICENSE). You may use, modify, distribute, and 
 ---
 
 <div align="center">
-
-*From China to the World — the first mile, in the open.*
-* · ——，。*
-
-</div>
