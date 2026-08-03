@@ -1,24 +1,22 @@
-name: 🐛 Bug report · Bug 反馈
-description: Something is broken or producing wrong output. · 功能异常或结果错误。
+name: 🐛 Bug report · Bug
+description: Something is broken or producing wrong output. · 。
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for reporting a bug — the more detail, the faster the fix.
-        感谢提交 bug 反馈，描述越详细修复越快。
+         bug ，。
   - type: input
     id: summary
     attributes:
-      label: Summary · 简要描述
-      placeholder: "Buyer match score for Pfizer is suspiciously low for ADC assets"
+      label: Summary      placeholder: "Buyer match score for Pfizer is suspiciously low for ADC assets"
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Steps to reproduce · 复现步骤
-      placeholder: |
+      label: Steps to reproduce      placeholder: |
         1. Go to https://sparky-6757.github.io/bd-match-pro/
         2. Set drug class = New, modality = ADC, indication = NSCLC, stage = Ph2
         3. Observe Pfizer ranks #15 instead of expected top-5
@@ -27,15 +25,14 @@ body:
   - type: textarea
     id: expected
     attributes:
-      label: Expected vs. actual · 期望 vs. 实际结果
+      label: Expected vs. actual ·  vs.
     validations:
       required: true
   - type: input
     id: browser
     attributes:
-      label: Browser · 浏览器
-      placeholder: "Chrome 130 / Safari 17 / Firefox 128"
+      label: Browser      placeholder: "Chrome 130 / Safari 17 / Firefox 128"
   - type: textarea
     id: extra
     attributes:
-      label: Additional context · 补充信息
+      label: Additional context
