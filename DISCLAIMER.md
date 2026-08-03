@@ -35,8 +35,3 @@ legal terms.
 
 在法律允许的最大范围内，作者与版权所有者不对本软件作任何明示或暗示的担保。完
 整法律条款见 [LICENSE](LICENSE)。
-
----
-
-— *Rapha Health Investment Technology Limited · 睿孚健康投资科技有限公司*
-*Hong Kong · 香港*
