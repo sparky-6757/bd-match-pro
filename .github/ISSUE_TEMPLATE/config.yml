@@ -1,8 +1,6 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 💬 Open-ended discussion · 公开讨论
-    url: https://github.com/sparky-6757/bd-match-pro/discussions
-    about: For questions, methodology debates, or anything not bug/feature. · 用于提问、方法学讨论等开放话题。
-  - name: 🌐 Try the live tool · 体验在线版
-    url: https://sparky-6757.github.io/bd-match-pro/
-    about: Open the running BD Match Pro before filing an issue. · 先打开在线工具确认问题。
+  - name: 💬 Open-ended discussion    url: https://github.com/sparky-6757/bd-match-pro/discussions
+    about: For questions, methodology debates, or anything not bug/feature. · 、。
+  - name: 🌐 Try the live tool    url: https://sparky-6757.github.io/bd-match-pro/
+    about: Open the running BD Match Pro before filing an issue. · 。
