@@ -1,21 +1,18 @@
-name: ✨ Feature request · 功能建议
-description: Suggest a new feature or enhancement. · 提出新功能或增强建议。
+name: ✨ Feature requestdescription: Suggest a new feature or enhancement. · 。
 labels: ["enhancement"]
 body:
   - type: textarea
     id: problem
     attributes:
-      label: Problem · 你想解决什么问题
-      placeholder: "I want to compare two scenarios side-by-side..."
+      label: Problem      placeholder: "I want to compare two scenarios side-by-side..."
     validations:
       required: true
   - type: textarea
     id: solution
     attributes:
-      label: Proposed solution · 建议的方案
-    validations:
+      label: Proposed solution    validations:
       required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered · 备选方案
+      label: Alternatives considered
