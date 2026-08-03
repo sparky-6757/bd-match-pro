@@ -95,9 +95,9 @@ PR 描述请包含：
 
 ## Reviews & merging · 审核与合并
 
-- Maintainers (Rapha Health team) will review within ~3–5 business days.
+- Project maintainers will review within ~3–5 business days.
 - Methodology PRs may take longer if they require reproducing the math.
-- Once merged, your contribution ships to https://raphahealthtech.github.io/bd-match-pro/ within ~2 minutes.
+- Once merged, your contribution ships to https://sparky-6757.github.io/bd-match-pro/ within ~2 minutes.
 
 ---
 
@@ -110,8 +110,6 @@ Be kind. Disagree on substance, not on people. This is a tool for the global bio
 
 ## Questions? · 有问题？
 
-- 💬 [GitHub Discussions](https://github.com/raphahealthtech/bd-match-pro/discussions) — for open-ended questions
-- 🐛 [Issues](https://github.com/raphahealthtech/bd-match-pro/issues) — for specific bugs or proposals
+- 💬 [GitHub Discussions](https://github.com/sparky-6757/bd-match-pro/discussions) — for open-ended questions
+- 🐛 [Issues](https://github.com/sparky-6757/bd-match-pro/issues) — for specific bugs or proposals
 - 📧 Direct contact: see [README · Contact](README.md#contact)
-
-— *Rapha Health · 睿孚健康*
