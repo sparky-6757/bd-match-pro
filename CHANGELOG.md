@@ -88,7 +88,7 @@ The original v1.0.0 release claimed "1,196 comparable deals" in marketing copy; 
 #### Open-sourced under · 开源协议
 - MIT License — see [LICENSE](LICENSE)
 
-[Unreleased]: https://github.com/raphahealthtech/bd-match-pro/compare/v1.0.2...HEAD
-[1.0.2]: https://github.com/raphahealthtech/bd-match-pro/releases/tag/v1.0.2
-[1.0.1]: https://github.com/raphahealthtech/bd-match-pro/releases/tag/v1.0.1
-[1.0.0]: https://github.com/raphahealthtech/bd-match-pro/releases/tag/v1.0.0
+[Unreleased]: https://github.com/sparky-6757/bd-match-pro/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/sparky-6757/bd-match-pro/releases/tag/v1.0.2
+[1.0.1]: https://github.com/sparky-6757/bd-match-pro/releases/tag/v1.0.1
+[1.0.0]: https://github.com/sparky-6757/bd-match-pro/releases/tag/v1.0.0
