@@ -8,13 +8,13 @@
 **AI · China Assets · Global Markets**
 **AI · 中国资产 · 全球市场**
 
-[![Live demo](https://img.shields.io/badge/🌐_demo-live-d4af37?style=flat-square)](https://raphahealthtech.github.io/bd-match-pro/)
+[![Live demo](https://img.shields.io/badge/🌐_demo-live-d4af37?style=flat-square)](https://sparky-6757.github.io/bd-match-pro/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-1a3a5c?style=flat-square)](LICENSE)
-[![v1.0.0](https://img.shields.io/github/v/release/raphahealthtech/bd-match-pro?style=flat-square&color=0d0c0a)](https://github.com/raphahealthtech/bd-match-pro/releases)
-[![Stars](https://img.shields.io/github/stars/raphahealthtech/bd-match-pro?style=flat-square&color=d4af37)](https://github.com/raphahealthtech/bd-match-pro/stargazers)
-[![Discussions](https://img.shields.io/github/discussions/raphahealthtech/bd-match-pro?style=flat-square&color=1a3a5c)](https://github.com/raphahealthtech/bd-match-pro/discussions)
+[![v1.0.0](https://img.shields.io/github/v/release/sparky-6757/bd-match-pro?style=flat-square&color=0d0c0a)](https://github.com/sparky-6757/bd-match-pro/releases)
+[![Stars](https://img.shields.io/github/stars/sparky-6757/bd-match-pro?style=flat-square&color=d4af37)](https://github.com/sparky-6757/bd-match-pro/stargazers)
+[![Discussions](https://img.shields.io/github/discussions/sparky-6757/bd-match-pro?style=flat-square&color=1a3a5c)](https://github.com/sparky-6757/bd-match-pro/discussions)
 
-[**🌐 Try the live tool · 立即体验**](https://raphahealthtech.github.io/bd-match-pro/) · [**🐙 Source**](https://github.com/raphahealthtech/bd-match-pro) · [**🗺️ Roadmap**](https://github.com/raphahealthtech/bd-match-pro/issues/2) · [**💬 Discussions**](https://github.com/raphahealthtech/bd-match-pro/discussions)
+[**🌐 Try the live tool · 立即体验**](https://sparky-6757.github.io/bd-match-pro/) · [**🐙 Source**](https://github.com/sparky-6757/bd-match-pro) · [**🗺️ Roadmap**](https://github.com/sparky-6757/bd-match-pro/issues/2) · [**💬 Discussions**](https://github.com/sparky-6757/bd-match-pro/discussions)
 
 </div>
 
@@ -31,7 +31,7 @@
 3. **参数全开放**——成功率（PoS）、贴现率（WACC）、峰值销售、毛利率、爬坡曲线、专利期等核心参数全部可由用户自由调整，**实时**看到不同假设下的估值变化。
 4. **方法学透明**——所有公式、参数默认值、买方权重逻辑、相似度加权方式均在源代码与方法学面板中公开，欢迎挑战、修改、改进。
 
-> **关于数据库规模与质量的诚实说明**：v1.0.2 库共 328 笔。其中 53 笔为 v1.0 起就已经手工精选录入的高质量条目（含完整临床阶段、备注），其余 275 笔为从公开披露数据批量摄入——**临床阶段一律标记为 `unknown`，药物类型 (modality) 通过药名规则推断**（如 `-mab` → 单抗、`-tinib` → 小分子、ADC / CAR-T 通过显式 token）。短期路线：(a) 扩充至 500+，(b) 给批量条目回填临床阶段。欢迎在 [Issues](https://github.com/raphahealthtech/bd-match-pro/issues) 提交补充数据。
+> **关于数据库规模与质量的诚实说明**：v1.0.2 库共 328 笔。其中 53 笔为 v1.0 起就已经手工精选录入的高质量条目（含完整临床阶段、备注），其余 275 笔为从公开披露数据批量摄入——**临床阶段一律标记为 `unknown`，药物类型 (modality) 通过药名规则推断**（如 `-mab` → 单抗、`-tinib` → 小分子、ADC / CAR-T 通过显式 token）。短期路线：(a) 扩充至 500+，(b) 给批量条目回填临床阶段。欢迎在 [Issues](https://github.com/sparky-6757/bd-match-pro/issues) 提交补充数据。
 
 ### 为什么开源
 
@@ -52,7 +52,7 @@
 3. **Fully parametric** — every input (PoS, WACC, peak sales, margin, ramp curve, patent runway, etc.) is **user-adjustable** and the valuation re-renders in real time.
 4. **Transparent methodology** — every formula, default parameter, weight and similarity-scoring rule is documented in the methodology panel and in the source. Challenge it, fork it, improve it.
 
-> **An honest note about database size and quality**: the v1.0.2 database is 328 deals total — 53 hand-curated entries from v1.0 (full clinical-stage detail and editorial notes), plus 275 bulk-ingested from public deal data with **clinical stage marked `unknown`** and **modality inferred from drug-name patterns** (e.g. `-mab` → mAb, `-tinib` → small molecule, ADC / CAR-T from explicit tokens). Near-term priorities: (a) expand to 500+, (b) backfill clinical stage on the bulk-ingested entries. Submit additional public deals via [Issues](https://github.com/raphahealthtech/bd-match-pro/issues).
+> **An honest note about database size and quality**: the v1.0.2 database is 328 deals total — 53 hand-curated entries from v1.0 (full clinical-stage detail and editorial notes), plus 275 bulk-ingested from public deal data with **clinical stage marked `unknown`** and **modality inferred from drug-name patterns** (e.g. `-mab` → mAb, `-tinib` → small molecule, ADC / CAR-T from explicit tokens). Near-term priorities: (a) expand to 500+, (b) backfill clinical stage on the bulk-ingested entries. Submit additional public deals via [Issues](https://github.com/sparky-6757/bd-match-pro/issues).
 
 ### Why open-source
 
@@ -67,7 +67,7 @@ Pharma BD has long been the black box of a handful of bulge-bracket banks and el
 ### Run locally · 本地运行
 
 ```bash
-git clone https://github.com/raphahealthtech/bd-match-pro.git
+git clone https://github.com/sparky-6757/bd-match-pro.git
 cd bd-match-pro
 # Just open index.html in any modern browser
 open index.html              # macOS
@@ -80,7 +80,7 @@ The entire app is a **single self-contained `index.html` file** — no build ste
 
 ### Live demo · 在线体验
 
-→ **[https://raphahealthtech.github.io/bd-match-pro/](https://raphahealthtech.github.io/bd-match-pro/)**
+→ **[https://sparky-6757.github.io/bd-match-pro/](https://sparky-6757.github.io/bd-match-pro/)**
 
 ---
 
@@ -195,13 +195,8 @@ Released under the [MIT License](LICENSE). You may use, modify, distribute, and 
 
 ## 💬 Contact · 联系我们 <a id="contact"></a>
 
-**Rapha Health Investment Technology Limited · 睿孚健康投资科技有限公司**
-Hong Kong · 香港
-
-- 📞 Mainland China · 中国大陆: **+86 13632302814**
-- 📞 Hong Kong · 香港: **+852 96602635**
-- 🌐 Live tool: [raphahealthtech.github.io/bd-match-pro](https://raphahealthtech.github.io/bd-match-pro/)
-- 💡 Feedback / Collaboration / Custom builds: **open an [Issue](https://github.com/raphahealthtech/bd-match-pro/issues)** or **start a [Discussion](https://github.com/raphahealthtech/bd-match-pro/discussions)**
+- 🌐 Live tool: [sparky-6757.github.io/bd-match-pro](https://sparky-6757.github.io/bd-match-pro/)
+- 💡 Feedback and collaboration: **open an [Issue](https://github.com/sparky-6757/bd-match-pro/issues)** or **start a [Discussion](https://github.com/sparky-6757/bd-match-pro/discussions)**
 
 ---
 
