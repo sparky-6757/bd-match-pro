@@ -16,7 +16,7 @@ Instead, please report privately via one of:
 
 请改用以下方式之一私下报告：
 
-- 🔒 GitHub Security Advisories: [Report a vulnerability](https://github.com/raphahealthtech/bd-match-pro/security/advisories/new)
+- 🔒 GitHub Security Advisories: [Report a vulnerability](https://github.com/sparky-6757/bd-match-pro/security/advisories/new)
 - 📧 Direct contact: see [README · Contact](README.md#contact)
 
 We will respond within **5 business days** and aim to ship a fix or mitigation within **30 days** of confirmed reports.
