@@ -1,35 +1,30 @@
-name: 🧮 Methodology proposal · 方法学提议
-description: Improve a formula, model, or scoring weight. · 改进公式、模型或权重。
+name: 🧮 Methodology proposaldescription: Improve a formula, model, or scoring weight. · 、。
 labels: ["methodology"]
 body:
   - type: markdown
     attributes:
       value: |
         Methodology changes ripple through every output — please make a clear case.
-        方法学改动会影响所有输出，请把论证写清楚。
+        ，。
   - type: textarea
     id: current
     attributes:
-      label: Current behaviour · 当前做法
-      placeholder: "rNPV uses a flat WACC of 11% across all stages"
+      label: Current behaviour      placeholder: "rNPV uses a flat WACC of 11% across all stages"
     validations:
       required: true
   - type: textarea
     id: proposed
     attributes:
-      label: Proposed change · 提议改法
-      placeholder: "Stage-conditional WACC: Preclinical 14%, Ph1 13%, Ph2 12%, Ph3 11%, NDA 10%, Approved 9%"
+      label: Proposed change      placeholder: "Stage-conditional WACC: Preclinical 14%, Ph1 13%, Ph2 12%, Ph3 11%, NDA 10%, Approved 9%"
     validations:
       required: true
   - type: textarea
     id: rationale
     attributes:
-      label: Rationale · 论证理由
-      placeholder: "Citations, papers, industry standard practice, internal analysis..."
+      label: Rationale      placeholder: "Citations, papers, industry standard practice, internal analysis..."
     validations:
       required: true
   - type: textarea
     id: impact
     attributes:
-      label: Expected impact on outputs · 对结果的预期影响
-      placeholder: "Early-stage assets become ~12% lower NPV; late-stage essentially unchanged"
+      label: Expected impact on outputs      placeholder: "Early-stage assets become ~12% lower NPV; late-stage essentially unchanged"
