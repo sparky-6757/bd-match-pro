@@ -19,7 +19,7 @@ body:
     attributes:
       label: Steps to reproduce · 复现步骤
       placeholder: |
-        1. Go to https://raphahealthtech.github.io/bd-match-pro/
+        1. Go to https://sparky-6757.github.io/bd-match-pro/
         2. Set drug class = New, modality = ADC, indication = NSCLC, stage = Ph2
         3. Observe Pfizer ranks #15 instead of expected top-5
     validations:
