@@ -1,17 +1,15 @@
-name: 📊 Data correction · 数据更正
-description: Update buyer info, deal data, default parameters. · 更新买方信息、交易数据、默认参数。
+name: 📊 Data correctiondescription: Update buyer info, deal data, default parameters. · 、、。
 labels: ["data"]
 body:
   - type: markdown
     attributes:
       value: |
         Help us keep the dataset fresh. Please cite a source.
-        帮我们保持数据时新，请附上信息来源。
+        ，。
   - type: dropdown
     id: kind
     attributes:
-      label: Type of data · 数据类型
-      options:
+      label: Type of data      options:
         - Buyer profile (portfolio / contacts / financials)
         - Comparable deal (transaction details)
         - Default parameter (PoS / WACC / peak / margin / ramp)
@@ -22,14 +20,12 @@ body:
   - type: textarea
     id: change
     attributes:
-      label: What should change · 应当更新什么
-      placeholder: "Pfizer's ADC focus increased after Seagen acquisition — modality weight should reflect this"
+      label: What should change      placeholder: "Pfizer's ADC focus increased after Seagen acquisition — modality weight should reflect this"
     validations:
       required: true
   - type: textarea
     id: source
     attributes:
-      label: Source · 来源
-      placeholder: "Pfizer Q4 2024 earnings call · https://..."
+      label: Source      placeholder: "Pfizer Q4 2024 earnings call · https://..."
     validations:
       required: true
