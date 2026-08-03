@@ -2,47 +2,6 @@
 
 # BD Match Pro
 
-### *Where does your asset belong?*
-### ，？
-
-**AI · China Assets · Global Markets**
-**AI ·  · **
-
-[![Live demo](https://img.shields.io/badge/🌐_demo-live-d4af37?style=flat-square)](https://sparky-6757.github.io/bd-match-pro/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-1a3a5c?style=flat-square)](LICENSE)
-[![v1.0.0](https://img.shields.io/github/v/release/sparky-6757/bd-match-pro?style=flat-square&color=0d0c0a)](https://github.com/sparky-6757/bd-match-pro/releases)
-[![Stars](https://img.shields.io/github/stars/sparky-6757/bd-match-pro?style=flat-square&color=d4af37)](https://github.com/sparky-6757/bd-match-pro/stargazers)
-[![Discussions](https://img.shields.io/github/discussions/sparky-6757/bd-match-pro?style=flat-square&color=1a3a5c)](https://github.com/sparky-6757/bd-match-pro/discussions)
-
-[**🌐 Try the live tool · **](https://sparky-6757.github.io/bd-match-pro/) · [**🐙 Source**](https://github.com/sparky-6757/bd-match-pro) · [**🗺️ Roadmap**](https://github.com/sparky-6757/bd-match-pro/issues/2) · [**💬 Discussions**](https://github.com/sparky-6757/bd-match-pro/discussions)
-
-</div>
-
----
-
-## 🇨🇳
-
-**BD Match Pro** 、AI 。 BD ""——*？？？*——、、。
-
-###
-
-1. ****—— 75 （、、），，** + **。
-2. ****—— **rNPV **  ****  50/50 ( 328 ， 2024-11 → 2026-02 ； ~50 ，、 `unknown`、)，、、， License-out / NewCo /  /  。 < 3  rNPV，。
-3. ****——（PoS）、（WACC）、、、、，****。
-4. ****——、、、，、、。
-
-> ****：v1.0.2  328 。 53  v1.0 （、）， 275 ——** `unknown`， (modality) **（ `-mab` → 、`-tinib` → 、ADC / CAR-T  token）。：(a)  500+，(b) 。 [Issues](https://github.com/sparky-6757/bd-match-pro/issues) 。
-
-###
-
- BD ""。：**，**。
-
-> *，。* 。 BD ，AI 、，。
-
----
-
-## 🇬🇧 English
-
 **BD Match Pro** is an open-source, AI-powered cross-border licensing engine for pharmaceutical assets. It tackles the first mile of biotech business development — *who would buy this asset, at what price, and via which deal structure?* — with data-driven, fully parametric, and transparent first-pass answers.
 
 ### What it does
